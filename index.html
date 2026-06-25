@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إيلاف | منتجات مغربية أصيلة فاخرة</title>
+    
+    <!-- Google Fonts: Cairo & Tajawal -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- html2canvas library for invoice image download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- Header Navigation -->
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="logo-area" onclick="navigateTo('home')">
+                <img src="logo.png" alt="شعار إيلاف" class="brand-logo">
+                <span class="brand-name">إيلاف</span>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="#" onclick="navigateTo('home')" class="nav-link active" id="nav-home">الرئيسية</a>
+                <a href="#" onclick="navigateTo('products')" class="nav-link" id="nav-products">منتجاتنا</a>
+                <a href="#" onclick="navigateTo('testimonials')" class="nav-link" id="nav-testimonials">آراء العملاء</a>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="icon-btn" onclick="toggleCart()" aria-label="سلة المشتريات">
+                    <i data-lucide="shopping-bag"></i>
+                    <span id="cart-badge" class="badge">0</span>
+                </button>
+                <button class="auth-btn btn-secondary" onclick="openAuthModal()" id="user-btn">
+                    <i data-lucide="user"></i>
+                    <span id="user-btn-text">تسجيل الدخول</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main>
+        
+        <!-- Home / Catalog View -->
+        <section id="home-view" class="view-section">
+            <!-- Hero Banner -->
+            <div class="hero-banner">
+                <div class="hero-content">
+                    <span class="hero-badge">طبيعي وأصيل 100%</span>
+                    <h1>أصالة المغرب وجماله بين يديك</h1>
+                    <p>اكتشف مجموعتنا الفاخرة المنسقة بعناية من زيت الأركان الأصيل، مستحضرات التجميل الطبيعية، والمأكولات المغربية الفريدة المستوحاة من قلب التراث المغربي.</p>
+                    <div class="hero-actions">
+                        <a href="#products-section" class="btn btn-primary btn-lg">تسوق منتجاتنا الآن</a>
+                        <a href="#about-story" class="btn btn-outline btn-lg">قصتنا</a>
+                    </div>
+                </div>
+                <div class="hero-decorations">
+                    <div class="circle-decor cyan"></div>
+                    <div class="circle-decor gold"></div>
+                </div>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="container section-padding">
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i data-lucide="shield-check"></i></div>
+                        <h3>أصالة مضمونة</h3>
+                        <p>منتجات مستوردة مباشرة من التعاونيات المغربية التقليدية الموثوقة.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i data-lucide="sparkles"></i></div>
+                        <h3>مكونات طبيعية</h3>
+                        <p>خالية تماماً من الكيماويات والمواد الحافظة الضارة ببشرتك وصحتك.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i data-lucide="truck"></i></div>
+                        <h3>شحن سريع وموثوق</h3>
+                        <p>توصيل سريع لباب منزلك مع تأكيد الطلب الفوري عبر الواتساب.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Story / About Section -->
+            <div id="about-story" class="about-section">
+                <div class="container about-container">
+                    <div class="about-text">
+                        <span class="sub-title">عن إيلاف</span>
+                        <h2>جسرٌ من الجمال والأصالة المغربية</h2>
+                        <p>تأسس متجر "إيلاف" ليقدم لكم أسرار الجمال والعناية الطبيعية المغربية التي توارثتها الأجيال. نحن نحرص على جلب المنتجات في أنقى صورها، مباشرة من جبال الأطلس وسهول سوس الشاسعة.</p>
+                        <p>من زيت الأركان النادر المعصور على البارد، إلى الصابون البلدي المعطر بالأعشاب، والغاسول المغربي الفاخر. نلتزم بدعم التعاونيات النسائية المحلية في المغرب لنضمن لكم منتجاً فائق الجودة يساهم في تنمية المجتمعات المحلية.</p>
+                        <div class="about-stats">
+                            <div class="stat-item">
+                                <h4>100%</h4>
+                                <p>طبيعي وعضوي</p>
+                            </div>
+                            <div class="stat-item">
+                                <h4>+15</h4>
+                                <p>تعاونية شريكة</p>
+                            </div>
+                            <div class="stat-item">
+                                <h4>+5000</h4>
+                                <p>عميل سعيد</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-image-card">
+                        <!-- Graphic elements representing Moroccan mosaic/beauty -->
+                        <div class="mosaic-pattern">
+                            <div class="pattern-overlay"></div>
+                            <img src="logo.png" alt="إيلاف شعار" class="about-inner-logo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Products View (Hidden by default) -->
+        <section id="products-view" class="view-section hidden">
+            <!-- Products Catalog Section -->
+            <div id="products-section" class="container section-padding">
+                <div class="section-header">
+                    <h2>منتجاتنا المتميزة</h2>
+                    <p>اختر ما يناسبك من أفضل مستحضرات العناية والمأكولات المغربية التقليدية</p>
+                    
+                    <!-- Filters -->
+                    <div class="filter-bar">
+                        <button class="filter-btn active" onclick="filterProducts('all')">الكل</button>
+                        <button class="filter-btn" onclick="filterProducts('cosmetics')">مستحضرات تجميل</button>
+                        <button class="filter-btn" onclick="filterProducts('food')">منتجات غذائية</button>
+                        <button class="filter-btn" onclick="filterProducts('sets')">باقات وهدايا</button>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div id="products-grid" class="products-grid">
+                    <!-- Products will be generated dynamically by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials View (Hidden by default) -->
+        <section id="testimonials-view" class="view-section hidden testimonials-section section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <h2>ماذا يقول عملاؤنا؟</h2>
+                    <p>نعتز بثقتكم ونعمل دائماً على تقديم الأفضل</p>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="rating">★★★★★</div>
+                        <p>"زيت الأركان من متجر إيلاف خيالي! بشرتي أصبحت ناعمة ونظيفة جداً. جودة ممتازة وسرعة بالتعامل والتوصيل."</p>
+                        <div class="client-info">
+                            <strong>فاطمة الزهراء</strong>
+                            <span>الرياض، السعودية</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="rating">★★★★★</div>
+                        <p>"أملو طعمه غاية في الروعة، يذكرني بزيارتي للمغرب. والصابون المغربي ريحته تفتح النفس. سأكرر الطلب بالتأكيد."</p>
+                        <div class="client-info">
+                            <strong>أحمد التميمي</strong>
+                            <span>دبي، الإمارات</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="rating">★★★★★</div>
+                        <p>"منتجات أصلية 100%. نظام الفاتورة وإرسالها للمشرف عبر الواتساب سهل وواضح جداً، وتم تأكيد الشحن خلال دقائق."</p>
+                        <div class="client-info">
+                            <strong>سلمى بناني</strong>
+                            <span>الدار البيضاء، المغرب</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="rating">★★★★★</div>
+                        <p>"طلبت طقم الشاي النحاسي وصندوق العناية الملكي كهدية لزوجتي. التغليف فخم جداً والنحاس ثقيل والاتقان ممتاز. خدمة 5 نجوم."</p>
+                        <div class="client-info">
+                            <strong>يوسف الجار الله</strong>
+                            <span>الكويت</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="rating">★★★★★</div>
+                        <p>"ماء الورد والزعفران بجد تحفة! ماء الورد ريحته طبيعية وجميلة جداً وبيرطب البشرة، والزعفران نكهته أصلية وقوية في الأكل."</p>
+                        <div class="client-info">
+                            <strong>رانيا الشافعي</strong>
+                            <span>القاهرة، مصر</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="rating">★★★★★</div>
+                        <p>"الصابون البلدي والغاسول ممتازين جداً للتخلص من الجلد الميت والتنظيف العميق. التوصيل كان سريع وسرعة استجابة المشرف على الواتساب مذهلة."</p>
+                        <div class="client-info">
+                            <strong>خالد العتيبي</strong>
+                            <span>جدة، السعودية</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="rating">★★★★★</div>
+                        <p>"زيت الأركان التجميلي رائع جداً للشعر والبشرة. لاحظت فرق كبير في حيوية شعري ولمعانه بعد أسبوعين فقط من الاستخدام."</p>
+                        <div class="client-info">
+                            <strong>مريم المهيري</strong>
+                            <span>أبوظبي، الإمارات</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="rating">★★★★★</div>
+                        <p>"تجربتي مع متجر إيلاف رائعة. الدخول برقم الجوال سهل جداً، والطلب سريع، وتحميل الفاتورة كصورة وفر عليا كتير في التواصل."</p>
+                        <div class="client-info">
+                            <strong>سارة الدوسري</strong>
+                            <span>المنامة، البحرين</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="rating">★★★★★</div>
+                        <p>"أملو باللوز والعسل وأركان طعمه أصلي ولذيذ ومغذي جداً للفطور. والتعامل مع المشرف لتأكيد الطلب كان في منتهى الذوق والاحترافية."</p>
+                        <div class="client-info">
+                            <strong>مصطفى محمود</strong>
+                            <span>الإسكندرية، مصر</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Product Detail View (Hidden by default) -->
+        <section id="product-detail-view" class="view-section hidden container section-padding">
+            <button class="btn btn-secondary mb-3 btn-icon" onclick="navigateTo('products')">
+                <i data-lucide="arrow-right"></i>
+                العودة للمنتجات
+            </button>
+            
+            <div class="product-detail-layout">
+                <!-- Image Gallery -->
+                <div class="product-gallery-container">
+                    <div class="main-image-wrapper">
+                        <img id="detail-main-image" src="logo.png" alt="صورة المنتج الرئيسية" class="detail-main-image">
+                    </div>
+                    <div id="detail-thumbnails" class="detail-thumbnails">
+                        <!-- Dynamically filled by JS -->
+                    </div>
+                </div>
+                
+                <!-- Product Details Info -->
+                <div class="product-detail-info">
+                    <span id="detail-category" class="product-category">تصنيف</span>
+                    <h1 id="detail-title">عنوان المنتج</h1>
+                    <div class="detail-price-row">
+                        <span id="detail-price" class="detail-price">0.00 ج.م.</span>
+                    </div>
+                    <p id="detail-desc" class="detail-desc-text">وصف تفصيلي للمنتج...</p>
+                    
+                    <div class="detail-section">
+                        <h4><i data-lucide="sparkles" class="text-accent"></i> فوائد المنتج:</h4>
+                        <ul id="detail-benefits" class="benefits-list">
+                            <!-- Dynamically filled by JS -->
+                        </ul>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4><i data-lucide="info" class="text-accent"></i> طريقة الاستخدام:</h4>
+                        <div id="detail-usage" class="usage-text">
+                            <!-- Dynamically filled by JS -->
+                        </div>
+                    </div>
+                    
+                    <div class="add-to-cart-section mt-4">
+                        <label class="qty-label" for="detail-qty-val">الكمية المطلوبة:</label>
+                        <div class="quantity-controller lg">
+                            <button class="qty-btn" type="button" onclick="adjustDetailQuantity(-1)">
+                                <i data-lucide="minus"></i>
+                            </button>
+                            <span id="detail-qty-val" class="qty-val">1</span>
+                            <button class="qty-btn" type="button" onclick="adjustDetailQuantity(1)">
+                                <i data-lucide="plus"></i>
+                            </button>
+                        </div>
+                        
+                        <button id="add-to-cart-detail-btn" class="btn btn-primary btn-lg mt-4 btn-block" onclick="addProductFromDetailsToCart()">
+                            <i data-lucide="shopping-cart"></i>
+                            إضافة إلى سلة الشراء
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Checkout View (Hidden by default) -->
+        <section id="checkout-view" class="view-section hidden container section-padding">
+            <div class="checkout-layout">
+                <!-- Shipping Form -->
+                <div class="checkout-form-container">
+                    <h2>إتمام الطلب ومعلومات الشحن</h2>
+                    <p class="form-subtitle">يرجى ملء البيانات التالية بدقة لضمان وصول طلبك في أسرع وقت</p>
+                    
+                    <form id="shipping-form" onsubmit="handlePlaceOrder(event)">
+                        <div class="form-group">
+                            <label for="shipping-name">الاسم الكامل *</label>
+                            <input type="text" id="shipping-name" required placeholder="أدخل اسمك الثلاثي">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="shipping-phone">رقم الهاتف للتواصل *</label>
+                                <input type="tel" id="shipping-phone" required placeholder="مثال: 0612345678">
+                            </div>
+                            <div class="form-group">
+                                <label for="shipping-city">المدينة *</label>
+                                <input type="text" id="shipping-city" required placeholder="مثال: الدار البيضاء، الرياض">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="shipping-address">العنوان بالتفصيل *</label>
+                            <input type="text" id="shipping-address" required placeholder="الحي، اسم الشارع، رقم المنزل">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="shipping-notes">ملاحظات إضافية للمشرف (اختياري)</label>
+                            <textarea id="shipping-notes" rows="3" placeholder="أي معلومات إضافية تود إعلام موظف الشحن بها..."></textarea>
+                        </div>
+
+                        <div class="payment-method-alert">
+                            <i data-lucide="info"></i>
+                            <div>
+                                <strong>طريقة الدفع: الدفع عند الاستلام / تحويل بنكي</strong>
+                                <p>لتأكيد طلبك، ستقوم بإرسال الفاتورة بعد إتمام الطلب للمشرف عبر الواتساب.</p>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block btn-lg mt-4">
+                            <i data-lucide="check-circle"></i>
+                            تأكيد الطلب وإصدار الفاتورة
+                        </button>
+                        
+                        <button type="button" class="btn btn-outline btn-block mt-2" onclick="navigateTo('home')">
+                            العودة للمتجر
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Order Summary Sidebar -->
+                <div class="checkout-summary-container">
+                    <h3>ملخص الطلب</h3>
+                    <div id="checkout-summary-items" class="summary-items">
+                        <!-- Dynamically filled by JS -->
+                    </div>
+                    
+                    <div class="price-breakdown">
+                        <div class="price-row">
+                            <span>المجموع الفرعي:</span>
+                            <span id="checkout-subtotal">0.00 ج.م.</span>
+                        </div>
+                        <div class="price-row">
+                            <span>تكلفة التوصيل:</span>
+                            <span id="checkout-shipping">30.00 ج.م.</span>
+                        </div>
+                        <hr>
+                        <div class="price-row total-row">
+                            <span>المجموع الكلي:</span>
+                            <span id="checkout-total">0.00 ج.م.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Receipt / Success View (Hidden by default) -->
+        <section id="receipt-view" class="view-section hidden container section-padding">
+            <div class="receipt-success-container">
+                
+                <!-- Instruction Header -->
+                <div class="receipt-alert-header">
+                    <div class="success-icon-badge">
+                        <i data-lucide="badge-check"></i>
+                    </div>
+                    <h2>تم تسجيل طلبك بنجاح!</h2>
+                    <p class="receipt-alert-desc">تبقى خطوة واحدة وأخيرة لشحن طلبك. يرجى إرسال الفاتورة للمشرف لتأكيد الطلب.</p>
+                    
+                    <!-- Interactive Action cards -->
+                    <div class="instruction-steps">
+                        <div class="step-card">
+                            <span class="step-num">1</span>
+                            <h4>حفظ الفاتورة كصورة</h4>
+                            <p>اضغط على زر <strong>"تحميل الفاتورة كصورة"</strong> بالأسفل لحفظ الفاتورة في جهازك بشكل تلقائي.</p>
+                        </div>
+                        <div class="step-card">
+                            <span class="step-num">2</span>
+                            <h4>إرسالها للمشرف</h4>
+                            <p>اضغط على زر <strong>"تأكيد الطلب عبر واتساب"</strong> لفتح محادثة المشرف مباشرة وإرسال الصورة وتفاصيل الطلب له.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Printable Invoice/Receipt Component -->
+                <div class="invoice-container-wrapper">
+                    <!-- The captured container -->
+                    <div id="invoice-card" class="invoice-card">
+                        <div class="invoice-watermark">إيلاف</div>
+                        
+                        <!-- Invoice Header -->
+                        <div class="invoice-header">
+                            <div class="invoice-brand">
+                                <img src="logo.png" alt="إيلاف شعار" class="invoice-logo">
+                                <div>
+                                    <h3>إيلاف للمنتجات المغربية</h3>
+                                    <p>أصالة وجمال وتراث طبيعي</p>
+                                </div>
+                            </div>
+                            <div class="invoice-meta">
+                                <h2>فاتورة شراء</h2>
+                                <p><strong>رقم الفاتورة:</strong> <span id="receipt-id">#10024</span></p>
+                                <p><strong>التاريخ:</strong> <span id="receipt-date">21 يونيو 2026</span></p>
+                                <span class="invoice-status-badge">بانتظار تأكيد الدفع</span>
+                            </div>
+                        </div>
+
+                        <hr class="invoice-divider">
+
+                        <!-- Client Info -->
+                        <div class="invoice-client-details">
+                            <h4>معلومات العميل والشحن:</h4>
+                            <div class="details-grid">
+                                <p><strong>الاسم الكامل:</strong> <span id="receipt-name">محمد أحمد</span></p>
+                                <p><strong>رقم الهاتف:</strong> <span id="receipt-phone">0612345678</span></p>
+                                <p><strong>المدينة:</strong> <span id="receipt-city">الدار البيضاء</span></p>
+                                <p><strong>العنوان بالتفصيل:</strong> <span id="receipt-address">حي المعاريف، شارع الزرقطوني</span></p>
+                            </div>
+                        </div>
+
+                        <!-- Items Table -->
+                        <table class="invoice-table">
+                            <thead>
+                                <tr>
+                                    <th>المنتج</th>
+                                    <th class="text-center">السعر</th>
+                                    <th class="text-center">الكمية</th>
+                                    <th class="text-left">المجموع</th>
+                                </tr>
+                            </thead>
+                            <tbody id="receipt-table-body">
+                                <!-- Dynamically filled by JS -->
+                            </tbody>
+                        </table>
+
+                        <!-- Calculation Summary -->
+                        <div class="invoice-totals">
+                            <div class="totals-table">
+                                <div class="total-row-item">
+                                    <span>المجموع الفرعي:</span>
+                                    <span id="receipt-subtotal">0.00 ج.م.</span>
+                                </div>
+                                <div class="total-row-item">
+                                    <span>تكلفة التوصيل:</span>
+                                    <span id="receipt-shipping">30.00 ج.م.</span>
+                                </div>
+                                <div class="total-row-item net-total">
+                                    <span>المجموع الكلي:</span>
+                                    <span id="receipt-total">0.00 ج.م.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="invoice-footer">
+                            <p>شكرًا لتسوقك من متجر إيلاف. نحن بانتظار لقطة الشاشة لتأكيد طلبك وشحنه!</p>
+                            <div class="barcode-svg">
+                                <div class="barcode-line"></div>
+                                <span id="barcode-text">EELAF-ORDER-10024</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interaction Actions for Receipt -->
+                <div class="receipt-action-buttons">
+                    <button class="btn btn-secondary btn-lg btn-icon" onclick="downloadInvoiceImage()">
+                        <i data-lucide="download"></i>
+                        تحميل الفاتورة كصورة
+                    </button>
+                    
+                    <button class="btn btn-primary btn-lg btn-icon" onclick="sendOrderToWhatsApp()">
+                        <i data-lucide="send"></i>
+                        تأكيد الطلب وإرسال للمشرف عبر واتساب
+                    </button>
+
+                    <button class="btn btn-outline btn-lg btn-block mt-4" onclick="resetToHome()">
+                        العودة للصفحة الرئيسية والتسوق مجدداً
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Slide-in Shopping Cart Drawer -->
+    <div id="cart-drawer" class="cart-drawer-overlay hidden" onclick="closeCartOnOverlay(event)">
+        <div class="cart-drawer" onclick="event.stopPropagation()">
+            <div class="cart-header">
+                <h3>سلة المشتريات (<span id="cart-count">0</span>)</h3>
+                <button class="close-btn" onclick="toggleCart()"><i data-lucide="x"></i></button>
+            </div>
+            
+            <div id="cart-items-container" class="cart-items">
+                <!-- Dynamically filled by JS -->
+                <div class="empty-cart-message">
+                    <i data-lucide="shopping-bag"></i>
+                    <p>سلة المشتريات فارغة حالياً</p>
+                    <button class="btn btn-primary btn-sm mt-3" onclick="toggleCart()">تصفح المنتجات</button>
+                </div>
+            </div>
+            
+            <div class="cart-footer">
+                <div class="cart-total-row">
+                    <span>المجموع الفرعي:</span>
+                    <span id="cart-total-price">0.00 ج.م.</span>
+                </div>
+                <p class="cart-shipping-notice">الشحن والتوصيل يتم احتسابه في خطوة الدفع (تكلفة ثابتة 30 ج.م.)</p>
+                <button class="btn btn-primary btn-block btn-lg" onclick="proceedToCheckout()">
+                    الذهاب للدفع وتأكيد الطلب
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Phone Authentication Modal -->
+    <div id="auth-modal" class="auth-modal-overlay hidden" onclick="closeAuthModalOnOverlay(event)">
+        <div class="auth-modal-card" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeAuthModal()"><i data-lucide="x"></i></button>
+            
+            <div class="auth-modal-logo">
+                <img src="logo.png" alt="إيلاف شعار">
+                <h3>تسجيل الدخول في متجر إيلاف</h3>
+                <p>سجل دخولك برقم الهاتف لحفظ سلتك ومتابعة طلباتك</p>
+            </div>
+
+            <!-- Step 1: Enter Phone Number -->
+            <div id="auth-step-phone" class="auth-step">
+                <form onsubmit="handleSendOTP(event)">
+                    <div class="form-group">
+                        <label for="auth-country">اختر الدولة *</label>
+                        <select id="auth-country" onchange="handleCountryChange()" class="country-select">
+                            <option value="EG" data-code="+20" data-flag="🇪🇬" data-placeholder="1x xxx xxxx" selected>مصر 🇪🇬 (+20)</option>
+                            <option value="MA" data-code="+212" data-flag="🇲🇦" data-placeholder="6xx xx xx xx">المغرب 🇲🇦 (+212)</option>
+                            <option value="SA" data-code="+966" data-flag="🇸🇦" data-placeholder="5x xxx xxxx">السعودية 🇸🇦 (+966)</option>
+                            <option value="AE" data-code="+971" data-flag="🇦🇪" data-placeholder="5x xxx xxxx">الإمارات 🇦🇪 (+971)</option>
+                            <option value="KW" data-code="+965" data-flag="🇰🇼" data-placeholder="xxxx xxxx">الكويت 🇰🇼 (+965)</option>
+                            <option value="QA" data-code="+974" data-flag="🇶🇦" data-placeholder="xxxx xxxx">قطر 🇶🇦 (+974)</option>
+                            <option value="OM" data-code="+968" data-flag="🇴🇲" data-placeholder="xxxx xxxx">عمان 🇴🇲 (+968)</option>
+                            <option value="BH" data-code="+973" data-flag="🇧🇭" data-placeholder="xxxx xxxx">البحرين 🇧🇭 (+973)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="auth-phone">رقم الهاتف الجوال *</label>
+                        <div class="phone-input-wrapper">
+                            <span id="country-prefix" class="phone-country-code">+20</span>
+                            <input type="tel" id="auth-phone" required placeholder="1x xxx xxxx">
+                        </div>
+                        <small id="phone-hint" class="form-hint">أدخل رقم الهاتف المتبقي بدون مفتاح الدولة.</small>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block btn-lg mt-3">
+                        إرسال رمز التحقق (OTP)
+                    </button>
+                </form>
+            </div>
+
+            <!-- Step 2: Enter Verification Code -->
+            <div id="auth-step-otp" class="auth-step hidden">
+                <p class="otp-instruction">تم إرسال رمز التحقق إلى الرقم <span id="display-auth-phone">+212 612345678</span></p>
+                
+                <form onsubmit="handleVerifyOTP(event)">
+                    <div class="form-group">
+                        <label for="auth-code">رمز التحقق المكون من 4 أرقام *</label>
+                        <div class="otp-code-container">
+                            <input type="text" class="otp-digit" maxlength="1" required data-index="0" oninput="handleOtpInput(event)" onkeydown="handleOtpKeyDown(event)">
+                            <input type="text" class="otp-digit" maxlength="1" required data-index="1" oninput="handleOtpInput(event)" onkeydown="handleOtpKeyDown(event)">
+                            <input type="text" class="otp-digit" maxlength="1" required data-index="2" oninput="handleOtpInput(event)" onkeydown="handleOtpKeyDown(event)">
+                            <input type="text" class="otp-digit" maxlength="1" required data-index="3" oninput="handleOtpInput(event)" onkeydown="handleOtpKeyDown(event)">
+                        </div>
+                    </div>
+                    
+                    <div class="otp-resend-area">
+                        <span>لم يصلك الرمز؟</span>
+                        <button type="button" id="resend-btn" class="text-link-btn" disabled onclick="handleResendOTP()">
+                            إعادة إرسال (<span id="otp-timer">59</span> ثانية)
+                        </button>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block btn-lg mt-4">
+                        تأكيد وتسجيل الدخول
+                    </button>
+                    
+                    <button type="button" class="btn btn-outline btn-block mt-2" onclick="showAuthStep('phone')">
+                        تغيير رقم الهاتف
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-about">
+                <div class="logo-area mb-3">
+                    <img src="logo.png" alt="إيلاف شعار" class="brand-logo footer-logo">
+                    <span class="brand-name">إيلاف</span>
+                </div>
+                <p>متجر إلكتروني للمنتجات المغربية التقليدية ومستحضرات العناية الطبيعية المستوحاة من تراث المغرب العريق.</p>
+                <div class="social-links mt-3">
+                    <a href="#" aria-label="فيسبوك"><i data-lucide="facebook"></i></a>
+                    <a href="#" aria-label="انستغرام"><i data-lucide="instagram"></i></a>
+                    <a href="#" aria-label="تويتر"><i data-lucide="twitter"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h4>روابط سريعة</h4>
+                <ul>
+                    <li><a href="#" onclick="navigateTo('home')">الرئيسية</a></li>
+                    <li><a href="#products-section">منتجاتنا</a></li>
+                    <li><a href="#about-story">قصتنا</a></li>
+                    <li><a href="#testimonials">آراء العملاء</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-contact">
+                <h4>تواصل معنا</h4>
+                <p><i data-lucide="phone"></i> +212 600-000000</p>
+                <p><i data-lucide="mail"></i> info@eelaf-shop.com</p>
+                <p><i data-lucide="map-pin"></i> الدار البيضاء، المملكة المغربية</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container footer-bottom-container">
+                <p>جميع الحقوق محفوظة © 2026 متجر إيلاف.</p>
+                <p>صنع بكل حب من أجل أصالة مغربية لا تضاهى.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="owner-panel-container" style="display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:999999; justify-content:center; align-items:center;">
+    <div style="background:white; padding:30px; border-radius:20px; width:90%; max-width:400px; position:relative; direction:rtl; text-align:right;">
+        <button onclick="document.getElementById('owner-panel-container').style.display='none'" style="position:absolute; top:10px; left:10px; border:none; background:none; cursor:pointer; font-size:24px;">✕</button>
+        
+        <div id="login-view">
+            <h2 style="color: #174c34; margin-bottom:20px;">دخول المالك</h2>
+            <input type="text" id="owner-phone" placeholder="رقم الهاتف" style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ccc; border-radius:8px;">
+            <input type="password" id="owner-pass" placeholder="كلمة السر" style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ccc; border-radius:8px;">
+            <button onclick="authenticateOwner()" style="width:100%; padding:10px; background:#174c34; color:white; border:none; border-radius:8px; cursor:pointer;">تسجيل الدخول</button>
+        </div>
+
+        <div id="dashboard-view" style="display:none;">
+            <h2 style="color: #174c34;">لوحة الإدارة</h2>
+            <div style="display:flex; gap:10px; margin-bottom:20px;">
+                <button onclick="showTab('add-prod')" style="flex:1; padding:10px; background:#f4f4f4; border:none; border-radius:5px;">إضافة منتج</button>
+                <button onclick="showTab('settings-view')" style="flex:1; padding:10px; background:#f4f4f4; border:none; border-radius:5px;">الإعدادات</button>
+            </div>
+            
+            <div id="add-prod" class="tab-content">
+                <input type="text" id="p-name" placeholder="اسم المنتج" style="width:100%; padding:8px; margin-bottom:10px;">
+                <textarea id="p-desc" placeholder="وصف المنتج" style="width:100%; padding:8px; margin-bottom:10px;"></textarea>
+                <input type="file" id="p-img" accept="image/*" style="width:100%; margin-bottom:10px;">
+                <button onclick="saveProductData()" style="width:100%; padding:10px; background:#10b981; color:white; border:none; border-radius:5px;">حفظ المنتج</button>
+            </div>
+
+            <div id="settings-view" class="tab-content" style="display:none;">
+                <input type="password" id="new-pass" placeholder="كلمة السر الجديدة" style="width:100%; padding:8px; margin-bottom:10px;">
+                <button onclick="updatePassword()" style="width:100%; padding:10px; background:#2563eb; color:white; border:none; border-radius:5px;">تحديث كلمة السر</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button onclick="document.getElementById('owner-panel-container').style.display='flex'" style="position:fixed; bottom:10px; left:10px; background:none; border:none; opacity:0.3; cursor:pointer;">⚙️</button>
+
+
+    <!-- App JavaScript Logic -->
+    <script src="app.js"></script>
+</body>
+</html>
